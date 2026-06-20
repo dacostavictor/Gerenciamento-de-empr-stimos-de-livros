@@ -1,0 +1,27 @@
+{
+  "name": "gerenciamento-de-empr-stimos-de-livros",
+  "version": "1.0.0",
+  "description": "trabalho do segundo bimestre de programacao web",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dacostavictor/Gerenciamento-de-empr-stimos-de-livros.git"
+  },
+  "author": "Victor, Matheus, Rafael e Jose",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dacostavictor/Gerenciamento-de-empr-stimos-de-livros/issues"
+  },
+  "homepage": "https://github.com/dacostavictor/Gerenciamento-de-empr-stimos-de-livros#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mysql2": "^3.22.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
