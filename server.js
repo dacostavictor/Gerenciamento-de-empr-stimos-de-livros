@@ -4,14 +4,18 @@ const port = 3000;
 const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
+
+const usersRoutes = require("./routes/usuarios");
+const booksRoutes = require("./routes/livros");
+
 app.use(express.json());
+
+app.use("/api/usuarios", usersRoutes);
+app.use("/api/livros", booksRoutes);
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-
-const apiRoutes = require("./routes/api");
-app.use("/api/usuarios", apiRoutes);
 
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
