@@ -7,7 +7,48 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Olá mundo!</h1>
+    <h1>Cadastro de usuários</h1>
+    <form method="post">
+      <label for="nome">Nome:</label>
+      <input
+        type="text"
+        placeholder="Digite seu nome aqui"
+        name="nome"
+        id="nome"
+        required
+      />
+      <br />
+
+      <label for="email">Email:</label>
+      <input
+        type="text"
+        placeholder="Digite seu email aqui"
+        name="email"
+        id="email"
+        required
+      />
+      <br />
+
+      <label for="senha">Senha:</label>
+      <input
+        type="text"
+        placeholder="Digite sua senha aqui"
+        name="senha"
+        id="senha"
+        required
+      />
+      <br />
+
+      <label for="perfil">Tipo de perfil:</label>
+      <select name="perfil" id="perfil" required>
+        <option value="" disabled selected>Selecione uma opção</option>
+        <option value="leitor">Leitor</option>
+        <option value="bibliotecario">Bibliotecario</option>
+      </select>
+      <br />
+
+      <button type="submit">Registrar</button>
+    </form>
 
     <script src="script.js"></script>
   </body>
