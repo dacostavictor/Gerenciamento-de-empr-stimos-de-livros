@@ -13,6 +13,9 @@ app.use("/api/usuarios", usersRoutes);
 const booksRoutes = require("./routes/livros");
 app.use("/api/livros", booksRoutes);
 
+const emprestimosRoutes = require("./routes/emprestimos");
+app.use("/api/emprestimos", emprestimosRoutes);
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
