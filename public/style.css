@@ -6,7 +6,7 @@ body {
   font-weight: bold;
 }
 
-h1 {
+h2 {
   font-size: 40px;
 }
 
@@ -46,7 +46,7 @@ select {
   width: 250px;
 }
 
-#registrar {
+button {
   cursor: pointer;
   background-color: rgb(219, 1, 1);
   color: white;
@@ -64,7 +64,7 @@ select {
   margin-right: auto;
 }
 
-#registrar:hover {
+button:hover {
   transform: scale(1.1);
   background-color: rgb(255, 21, 21);
 }
