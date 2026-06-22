@@ -55,7 +55,7 @@ router.put("/editar/:id", (req, res) => {
 router.delete("/excluir/:id", (req, res) => {
   const { id } = req.params;
 
-  db.query("DELETE FROM usuarios WHERE id = ?", [id], (err) => {
+  db.query("DELETE FROM livros WHERE id = ?", [id], (err) => {
     if (err) {
       console.error(err);
       return res.status(500).send(err);

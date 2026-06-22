@@ -3,11 +3,62 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bibliotecario</title>
+    <title>Página de Bibliotecario</title>
     <link rel="stylesheet" href="bibliotecario.css" />
   </head>
   <body>
-    <h1>Bibliotecario</h1>
+    <h1>Página de Bibliotecario</h1>
+    <hr />
+
+    <h2>Registrar novo livro:</h2>
+    <form id="registrarLivro">
+      <label for="titulo">Título:</label>
+      <input
+        type="text"
+        placeholder="Digite o titulo do livro aqui"
+        id="titulo"
+        name="titulo"
+        required
+      />
+      <br /><br />
+
+      <label for="autor">Autor:</label>
+      <input
+        type="text"
+        placeholder="Digite o nome do autor do livro aqui"
+        id="autor"
+        name="autor"
+        required
+      />
+      <br /><br />
+
+      <label for="ano_publicacao">Ano de publicação:</label>
+      <input
+        type="number"
+        placeholder="Digite o ano de publicação do livro aqui"
+        id="ano_publicacao"
+        name="ano_publicacao"
+        step="1"
+        required
+      />
+      <br /><br />
+
+      <label for="quantidade_disponivel">Quantidade disponível:</label>
+      <input
+        type="number"
+        placeholder="Digite a quantidade disponível do livro aqui"
+        id="quantidade_disponivel"
+        name="quantidade_disponivel"
+        step="1"
+        required
+      />
+      <br /><br />
+
+      <button type="submit">Registrar</button>
+    </form>
+
+    <h2>Lista de livros:</h2>
+    <ul id="listaLivros"></ul>
 
     <script src="bibliotecario.js"></script>
   </body>
