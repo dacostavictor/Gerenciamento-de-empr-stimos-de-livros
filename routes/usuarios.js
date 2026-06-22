@@ -58,4 +58,31 @@ router.delete("/excluir/:id", (req, res) => {
   });
 });
 
+router.post("/login", (req, res) => {
+  const { nome, senha } = req.body;
+
+  db.query(
+    "SELECT * FROM usuarios WHERE nome = ?",
+    [nome],
+    async (err, resultados) => {
+      if (err) {
+        console.error("Erro na consulta:", err.message);
+        return res.status(500).json({ erro: "Erro interno no servidor." });
+      }
+
+      if (resultados.length === 0) {
+        return res.status(401).json({ erro: "Usuário ou senha inválidos." });
+      }
+
+      const usuario = resultados[0];
+
+      if (senha != usuario.senha) {
+        return res.status(401).json({ erro: "Usuário ou senha inválidos." });
+      }
+
+      return res.json({ mensagem: `Bem-vindo, ${usuario.nome}!` });
+    },
+  );
+});
+
 module.exports = router;
