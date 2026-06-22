@@ -59,11 +59,11 @@ router.delete("/excluir/:id", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-  const { nome, senha } = req.body;
+  const { email, senha } = req.body;
 
   db.query(
-    "SELECT * FROM usuarios WHERE nome = ?",
-    [nome],
+    "SELECT * FROM usuarios WHERE email = ?",
+    [email],
     async (err, resultados) => {
       if (err) {
         console.error("Erro na consulta:", err.message);

@@ -33,7 +33,7 @@ formularioCadastro.addEventListener("submit", (e) => {
 formularioLogin.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  const nome = document.getElementById("Nome").value;
+  const email = document.getElementById("Email").value;
   const senha = document.getElementById("Senha").value;
 
   fazerLogin(nome, senha);
