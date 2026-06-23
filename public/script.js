@@ -11,12 +11,27 @@ function cadastrarUsuario(nome, email, senha, perfil) {
   });
 }
 
-function fazerLogin(nome, senha) {
-  fetch("api/usuarios/login", {
+function fazerLogin(email, senha) {
+  fetch("/api/usuarios/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome, senha }),
-  });
+    body: JSON.stringify({ email, senha }),
+  })
+    .then(async (resposta) => {
+      const dados = await resposta.json();
+
+      if (!resposta.ok) {
+        alert(dados.erro || "Não foi possível fazer login.");
+        return;
+      }
+
+      // O backend (middleware redirecionarPorPerfil) devolve a página
+      // de destino de acordo com o perfil do usuário.
+      if (dados.redirect) {
+        window.location.href = dados.redirect;
+      }
+    })
+    .catch(() => alert("Erro de conexão com o servidor."));
 }
 
 formularioCadastro.addEventListener("submit", (e) => {
@@ -36,5 +51,5 @@ formularioLogin.addEventListener("submit", (e) => {
   const email = document.getElementById("Email").value;
   const senha = document.getElementById("Senha").value;
 
-  fazerLogin(nome, senha);
+  fazerLogin(email, senha);
 });

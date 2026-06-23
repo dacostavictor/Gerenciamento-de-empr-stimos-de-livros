@@ -4,6 +4,8 @@ const router = express.Router();
 
 const db = require("../db");
 
+const { redirecionarPorPerfil } = require("../middlewares/redirecionarPorPerfil");
+
 router.post("/cadastrar", (req, res) => {
   const { nome, email, senha, perfil } = req.body;
   db.query(
@@ -58,31 +60,38 @@ router.delete("/excluir/:id", (req, res) => {
   });
 });
 
-router.post("/login", (req, res) => {
-  const { email, senha } = req.body;
+router.post(
+  "/login",
+  (req, res, next) => {
+    const { email, senha } = req.body;
 
-  db.query(
-    "SELECT * FROM usuarios WHERE email = ?",
-    [email],
-    async (err, resultados) => {
-      if (err) {
-        console.error("Erro na consulta:", err.message);
-        return res.status(500).json({ erro: "Erro interno no servidor." });
-      }
+    db.query(
+      "SELECT * FROM usuarios WHERE email = ?",
+      [email],
+      async (err, resultados) => {
+        if (err) {
+          console.error("Erro na consulta:", err.message);
+          return res.status(500).json({ erro: "Erro interno no servidor." });
+        }
 
-      if (resultados.length === 0) {
-        return res.status(401).json({ erro: "Usuário ou senha inválidos." });
-      }
+        if (resultados.length === 0) {
+          return res.status(401).json({ erro: "Usuário ou senha inválidos." });
+        }
 
-      const usuario = resultados[0];
+        const usuario = resultados[0];
 
-      if (senha != usuario.senha) {
-        return res.status(401).json({ erro: "Usuário ou senha inválidos." });
-      }
+        if (senha != usuario.senha) {
+          return res.status(401).json({ erro: "Usuário ou senha inválidos." });
+        }
 
-      return res.json({ mensagem: `Bem-vindo, ${usuario.nome}!` });
-    },
-  );
-});
+        // Autenticado: guarda o usuário e passa para o middleware
+        // que decide a página de destino conforme o perfil.
+        req.usuario = usuario;
+        next();
+      },
+    );
+  },
+  redirecionarPorPerfil,
+);
 
 module.exports = router;
