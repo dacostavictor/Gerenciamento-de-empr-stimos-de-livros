@@ -4,7 +4,9 @@ const router = express.Router();
 
 const db = require("../db");
 
-const { redirecionarPorPerfil } = require("../middlewares/redirecionarPorPerfil");
+const {
+  redirecionarPorPerfil,
+} = require("../middlewares/redirecionarPorPerfil");
 
 router.post("/cadastrar", (req, res) => {
   const { nome, email, senha, perfil } = req.body;
@@ -84,8 +86,6 @@ router.post(
           return res.status(401).json({ erro: "Usuário ou senha inválidos." });
         }
 
-        // Autenticado: guarda o usuário e passa para o middleware
-        // que decide a página de destino conforme o perfil.
         req.usuario = usuario;
         next();
       },

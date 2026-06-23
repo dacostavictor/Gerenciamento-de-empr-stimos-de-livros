@@ -21,6 +21,8 @@ function redirecionarPorPerfil(req, res) {
   return res.json({
     mensagem: `Bem-vindo, ${usuario.nome}!`,
     perfil: usuario.perfil,
+    usuario_id: usuario.id,
+    usuario_nome: usuario.nome,
     redirect: destino,
   });
 }

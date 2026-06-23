@@ -3,14 +3,97 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Página de Leitor</title>
+    <title>Painel do Leitor</title>
+    <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="leitor.css" />
   </head>
   <body>
-    <h1>Página de Leitor</h1>
-    <hr />
-    <h2>Lista dos Livros:</h2>
-    <ul id="listaLivros"></ul>
+    <div class="page-wrapper">
+      <header class="site-header">
+        <div class="logo">📚 BiblioSystem</div>
+        <p class="site-subtitle">
+          Painel do Leitor &mdash; <span id="nomeUsuario"></span>
+        </p>
+        <button
+          class="btn btn-danger btn-sm"
+          onclick="sair()"
+          style="margin-top: 0.5rem"
+        >
+          Sair
+        </button>
+      </header>
+
+      <section class="card" style="margin-bottom: 1.5rem">
+        <h2>Livros disponíveis</h2>
+        <p id="msgCatalogo" class="mensagem" style="display: none"></p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Ano</th>
+                <th>Disponíveis</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyLivros"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Meus empréstimos</h2>
+        <p id="msgEmprestimo" class="mensagem" style="display: none"></p>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Livro</th>
+                <th>Empréstimo</th>
+                <th>Devolução prevista</th>
+                <th>Status</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyEmprestimos"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <div
+      id="modalEmprestimo"
+      style="
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div class="card" style="max-width: 360px; width: 90%">
+        <h2>Solicitar empréstimo</h2>
+        <label for="dataDevolucaoPrevista">Data prevista de devolução</label>
+        <input
+          type="date"
+          id="dataDevolucaoPrevista"
+          style="margin-bottom: 1rem"
+        />
+        <div style="display: flex; gap: 0.75rem">
+          <button class="btn btn-primary" onclick="confirmarEmprestimo()">
+            Confirmar
+          </button>
+          <button class="btn btn-danger" onclick="fecharModal()">
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
 
     <script src="leitor.js"></script>
   </body>
