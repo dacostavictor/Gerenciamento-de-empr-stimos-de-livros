@@ -1,4 +1,4 @@
-# 📚 BiblioSystem — Gerenciamento de Empréstimos de Livros
+# Gerenciamento de Empréstimos de Livros
 
 Sistema web para gerenciar empréstimos de livros em uma biblioteca, com controle de permissões para Bibliotecários e Leitores.
 
@@ -11,6 +11,7 @@ Sistema web para gerenciar empréstimos de livros em uma biblioteca, com control
 ## Instalação e execução
 
 ### 1. Pré-requisitos
+
 - Node.js 18+
 - MySQL (local ou remoto)
 
@@ -47,11 +48,13 @@ Acesse em: **http://localhost:3000**
 ## Funcionalidades
 
 ### Bibliotecário
+
 - Cadastrar, editar e excluir livros
 - Visualizar todos os empréstimos (ativos, atrasados, devolvidos)
 - Aprovar devoluções (atualiza estoque automaticamente)
 
 ### Leitor
+
 - Visualizar catálogo de livros disponíveis
 - Solicitar empréstimo (com data de devolução prevista)
 - Acompanhar empréstimos e status
@@ -59,16 +62,16 @@ Acesse em: **http://localhost:3000**
 
 ## Rotas da API
 
-| Método | Rota | Descrição |
-|--------|------|-----------|
-| POST | `/api/usuarios/cadastrar` | Cadastrar usuário |
-| POST | `/api/usuarios/login` | Login |
-| GET | `/api/livros/listar` | Listar livros |
-| POST | `/api/livros/cadastrar` | Cadastrar livro |
-| PUT | `/api/livros/editar/:id` | Editar livro |
-| DELETE | `/api/livros/excluir/:id` | Excluir livro |
-| GET | `/api/emprestimos/listar` | Listar empréstimos |
-| GET | `/api/emprestimos/leitor/:id` | Empréstimos do leitor |
-| POST | `/api/emprestimos/solicitar` | Solicitar empréstimo |
-| PUT | `/api/emprestimos/devolver/:id` | Registrar devolução |
-| DELETE | `/api/emprestimos/cancelar/:id` | Cancelar empréstimo |
+| Método | Rota                            | Descrição             |
+| ------ | ------------------------------- | --------------------- |
+| POST   | `/api/usuarios/cadastrar`       | Cadastrar usuário     |
+| POST   | `/api/usuarios/login`           | Login                 |
+| GET    | `/api/livros/listar`            | Listar livros         |
+| POST   | `/api/livros/cadastrar`         | Cadastrar livro       |
+| PUT    | `/api/livros/editar/:id`        | Editar livro          |
+| DELETE | `/api/livros/excluir/:id`       | Excluir livro         |
+| GET    | `/api/emprestimos/listar`       | Listar empréstimos    |
+| GET    | `/api/emprestimos/leitor/:id`   | Empréstimos do leitor |
+| POST   | `/api/emprestimos/solicitar`    | Solicitar empréstimo  |
+| PUT    | `/api/emprestimos/devolver/:id` | Registrar devolução   |
+| DELETE | `/api/emprestimos/cancelar/:id` | Cancelar empréstimo   |
