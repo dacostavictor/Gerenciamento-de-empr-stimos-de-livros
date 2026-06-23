@@ -144,10 +144,12 @@ function listarEmprestimos() {
       }
       data.forEach((emp) => {
         const statusBadge = `<span class="badge badge-${emp.status}">${emp.status}</span>`;
-        const acaoBotao =
+        const btnDevolver =
           emp.status !== "devolvido"
-            ? `<button class="btn btn-success btn-sm" onclick="aprovarDevolucao(${emp.id})">Aprovar devolução</button>`
-            : "—";
+            ? `<button class="btn btn-success btn-sm" onclick="aprovarDevolucao(${emp.id})">Aprovar devolução</button> `
+            : "";
+        const btnCancelar = `<button class="btn btn-danger btn-sm" onclick="cancelarEmprestimo(${emp.id})">Cancelar</button>`;
+        const acaoBotao = btnDevolver + btnCancelar;
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td>${emp.id}</td>
@@ -184,6 +186,28 @@ function aprovarDevolucao(id) {
         e.message || "Erro ao registrar devolução.",
         "erro",
       ),
+    );
+}
+
+function cancelarEmprestimo(id) {
+  if (
+    !confirm(
+      "Cancelar/excluir este empréstimo? O registro será removido e, se o livro ainda estava emprestado, ele volta ao estoque.",
+    )
+  )
+    return;
+  fetch(`/api/emprestimos/cancelar/${id}`, { method: "DELETE" })
+    .then((r) => {
+      if (!r.ok)
+        return r.json().then((d) => {
+          throw new Error(d.erro);
+        });
+      mostrarMsg("msgEmprestimo", "Empréstimo cancelado.", "sucesso");
+      listarEmprestimos();
+      listarLivros();
+    })
+    .catch((e) =>
+      mostrarMsg("msgEmprestimo", e.message || "Erro ao cancelar.", "erro"),
     );
 }
 

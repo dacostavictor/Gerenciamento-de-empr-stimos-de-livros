@@ -55,13 +55,73 @@ router.put("/editar/:id", (req, res) => {
 router.delete("/excluir/:id", (req, res) => {
   const { id } = req.params;
 
-  db.query("DELETE FROM livros WHERE id = ?", [id], (err) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).send(err);
-    }
-    res.sendStatus(204);
-  });
+  db.query(
+    "SELECT COUNT(*) AS ativos FROM emprestimos WHERE livro_id = ? AND status IN ('ativo', 'atrasado')",
+    [id],
+    (err, results) => {
+      if (err) {
+        console.error(err);
+        return res
+          .status(500)
+          .json({ erro: "Erro ao verificar empréstimos do livro." });
+      }
+
+      if (results[0].ativos > 0) {
+        return res.status(409).json({
+          erro: "Não é possível excluir: este livro possui empréstimo(s) ativo(s). Registre a devolução antes de excluir.",
+        });
+      }
+
+      db.beginTransaction((err) => {
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ erro: "Erro ao iniciar a exclusão." });
+        }
+
+        db.query(
+          "DELETE FROM emprestimos WHERE livro_id = ?",
+          [id],
+          (err) => {
+            if (err) {
+              return db.rollback(() => {
+                console.error(err);
+                res
+                  .status(500)
+                  .json({ erro: "Erro ao remover o histórico de empréstimos." });
+              });
+            }
+
+            db.query("DELETE FROM livros WHERE id = ?", [id], (err, result) => {
+              if (err) {
+                return db.rollback(() => {
+                  console.error(err);
+                  res.status(500).json({ erro: "Erro ao excluir o livro." });
+                });
+              }
+
+              if (result.affectedRows === 0) {
+                return db.rollback(() => {
+                  res.status(404).json({ erro: "Livro não encontrado." });
+                });
+              }
+
+              db.commit((err) => {
+                if (err) {
+                  return db.rollback(() => {
+                    console.error(err);
+                    res
+                      .status(500)
+                      .json({ erro: "Erro ao concluir a exclusão." });
+                  });
+                }
+                res.sendStatus(204);
+              });
+            });
+          },
+        );
+      });
+    },
+  );
 });
 
 module.exports = router;
