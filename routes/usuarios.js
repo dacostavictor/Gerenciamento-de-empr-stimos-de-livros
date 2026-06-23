@@ -4,6 +4,8 @@ const router = express.Router();
 
 const db = require("../db");
 
+const { redirecionarPorPerfil } = require("../middlewares/redirecionarPorPerfil");
+
 router.post("/cadastrar", (req, res) => {
   const { nome, email, senha, perfil } = req.body;
   db.query(
